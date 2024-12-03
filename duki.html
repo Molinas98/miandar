@@ -21,20 +21,20 @@
       cursor: pointer;
       box-shadow: 0 0 10px #ba55d3, 0 0 20px #ba55d3;
       text-shadow: 0 0 5px #ba55d3, 0 0 10px #ba55d3;
-      transition: transform 0.1s ease, box-shadow 0.3s ease;
+      display: none; /* Ocultar inicialmente */
     }
   </style>
 </head>
 <body>
   <a-scene
-    mindar-image="imageTargetSrc: assets/img/targets2.mind"
+    mindar-image="imageTargetSrc: assets/img/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false"
   >
     <a-assets>
-      <video id="video" src="assets/img/video.mp4" autoplay loop muted></video>
+      <video id="video" src="assets/img/video.mp4" autoplay muted></video>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -48,17 +48,19 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      const videoElement = document.getElementById('video');
       const playButton = document.getElementById('play-button');
-      
-      // Mostrar el botón cuando se detecta el target
-      const targetEntity = document.querySelector('[mindar-image-target]');
-      targetEntity.addEventListener('targetFound', function () {
-        playButton.style.display = 'block';
+
+      // Escuchar el evento de finalización del video
+      videoElement.addEventListener('ended', function () {
+        playButton.style.display = 'block'; // Mostrar el botón al finalizar
+        videoElement.loop = true; // Hacer que el video se reproduzca en bucle a partir de ahora
+        videoElement.play(); // Reanudar la reproducción en bucle
       });
 
       // Redireccionar al hacer clic en el botón
       playButton.addEventListener('click', function () {
-        window.location.href = 'URL_DE_DESTINO.html';  // Cambia esto por la URL deseada
+        window.location.href = 'URL_DE_DESTINO.html'; // Cambia esto por la URL deseada
       });
     });
   </script>
