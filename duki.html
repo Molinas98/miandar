@@ -34,7 +34,7 @@
     device-orientation-permission-ui="enabled: false"
   >
     <a-assets>
-      <video id="video" src="assets/img/video.mp4" autoplay muted></video>
+      <video id="video" src="assets/img/video.mp4" muted></video>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -51,11 +51,19 @@
       const videoElement = document.getElementById('video');
       const playButton = document.getElementById('play-button');
 
-      // Escuchar el evento de finalización del video
+      // Pausar el video inicialmente
+      videoElement.pause();
+
+      // Esperar 3 segundos antes de reproducir el video
+      setTimeout(() => {
+        videoElement.play();
+      }, 3000);
+
+      // Mostrar el botón cuando el video termine por primera vez
       videoElement.addEventListener('ended', function () {
-        playButton.style.display = 'block'; // Mostrar el botón al finalizar
-        videoElement.loop = true; // Hacer que el video se reproduzca en bucle a partir de ahora
-        videoElement.play(); // Reanudar la reproducción en bucle
+        playButton.style.display = 'block';
+        videoElement.loop = true; // Reproducir en bucle después de la primera vez
+        videoElement.play(); // Reanudar la reproducción
       });
 
       // Redireccionar al hacer clic en el botón
