@@ -27,50 +27,25 @@
 </head>
 <body>
   <a-scene
-    Zmindar-image="imageTargetSrc: assets/img/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
+    mindar-image="imageTargetSrc: assets/img/navidad.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false"
   >
     <a-assets>
-      <video id="video" src="assets/img/video.mp4" muted></video>
+      <img id="navidad" src="assets/img/nieve.gif" />
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-video src="#video" id="video-element" position="0 0 0" height="1" width="1.5"></a-video>
+      <a-image src="#naviad" position="-0 0 0.1" height="1" width="1.5"></a-image>
     </a-entity>
   </a-scene>
 
-  <button id="play-button" class="glass-button">Ir a la página</button>
-
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const videoElement = document.getElementById('video');
-      const playButton = document.getElementById('play-button');
 
-      // Pausar el video inicialmente
-      videoElement.pause();
-
-      // Esperar 3 segundos antes de reproducir el video
-      setTimeout(() => {
-        videoElement.play();
-      }, 3000);
-
-      // Mostrar el botón cuando el video termine por primera vez
-      videoElement.addEventListener('ended', function () {
-        playButton.style.display = 'block';
-        videoElement.loop = true; // Reproducir en bucle después de la primera vez
-        videoElement.play(); // Reanudar la reproducción
-      });
-
-      // Redireccionar al hacer clic en el botón
-      playButton.addEventListener('click', function () {
-        window.location.href = 'URL_DE_DESTINO.html'; // Cambia esto por la URL deseada
-      });
-    });
   </script>
 </body>
 </html>
