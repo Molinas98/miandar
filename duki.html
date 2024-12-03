@@ -1,76 +1,66 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      .glass-button, .buy-tickets {
-        position: absolute;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 15px 30px;
-        border: none;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        color: #ba55d3;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        text-align: center;
-        box-shadow: 0 0 10px #ba55d3, 0 0 20px #ba55d3;
-        text-shadow: 0 0 5px #ba55d3, 0 0 10px #ba55d3;
-        transition: transform 0.1s ease, box-shadow 0.3s ease;
-        display: none; /* Inicialmente oculto */
-      }
-
-      .buy-tickets {
-        background-color: white;
-        color: black;
-      }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    .glass-button {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: #ba55d3;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ba55d3, 0 0 20px #ba55d3;
+      text-shadow: 0 0 5px #ba55d3, 0 0 10px #ba55d3;
+      transition: transform 0.1s ease, box-shadow 0.3s ease;
+    }
+  </style>
 </head>
 <body>
-    <a-scene
-      mindar-image="imageTargetSrc: assets/img/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
+  <a-scene
+    mindar-image="imageTargetSrc: assets/img/targets2.mind"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <a-assets>
+      <video id="video" src="assets/img/video.mp4" autoplay loop muted></video>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video src="#video" id="video-element" position="0 0 0" height="1" width="1.5"></a-video>
+    </a-entity>
+  </a-scene>
+
+  <button id="play-button" class="glass-button">Ir a la página</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const playButton = document.getElementById('play-button');
       
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
-      <a-assets>
-        <video id="video" src="assets/img/video.mp4" autoplay loop="true" muted="true"></video>
-      </a-assets>
+      // Mostrar el botón cuando se detecta el target
+      const targetEntity = document.querySelector('[mindar-image-target]');
+      targetEntity.addEventListener('targetFound', function () {
+        playButton.style.display = 'block';
+      });
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-      <a-entity mindar-image-target="targetIndex: 0" id="target-entity">
-        <a-video src="#video" id="video-element" position="0 0 0.15" height="1" width="1.5" visible="false"></a-video>
-      </a-entity>
-
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const videoElement = document.getElementById('video-element');
-          const playButton = document.createElement('button');
-          playButton.id = 'play-button';
-          playButton.textContent = 'Play';
-          document.body.appendChild(playButton);
-
-          const buyTicketsButton = document.createElement('button');
-          buyTicketsButton.className = 'glass-button buy-tickets';
-          buyTicketsButton.textContent = 'Comprar Tickets';
-          document.body.appendChild(buyTicketsButton);
-
-          const targetEntity = document.getElementById('target-entity');
-          targetEntity.addEventListener('targetFound', function () {
-            playButton.style.display = 'block';
-          });
-        });
-      </script>
-    </a-scene>
+      // Redireccionar al hacer clic en el botón
+      playButton.addEventListener('click', function () {
+        window.location.href = 'URL_DE_DESTINO.html';  // Cambia esto por la URL deseada
+      });
+    });
+  </script>
 </body>
 </html>
