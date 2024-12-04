@@ -15,21 +15,20 @@
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      color: #ba55d3;
+      color: red;
       font-size: 18px;
-      font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 0 10px #ba55d3, 0 0 20px #ba55d3;
-      text-shadow: 0 0 5px #ba55d3, 0 0 10px #ba55d3;
-      display: none; /* Ocultar inicialmente */
-      z-index: 1000;
+      box-shadow: 0 0 10px red, 0 0 20px red;
+      text-shadow: 0 0 2px red, 0 0 2px red;
+      z-index: 100;
+      display: none;
     }
   </style>
 </head>
 <body>
 
   <a-scene
-    mindar-image="imageTargetSrc: assets/img/targets2.mind; filterMinCF:0.0001; filterBeta: 0.001"
+    mindar-image="imageTargetSrc: assets/img/targets4.mind; filterMinCF:0.0001; filterBeta: 0.001"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
@@ -45,7 +44,7 @@
       <a-video src="#video" position="0 0 0" height="1" width="1.5"></a-video>
     </a-entity>
 
-    <button id="play-button" class="glass-button">Ir a la página</button>
+    <button id="play-button" class="glass-button">Vamos allá</button>
 
   </a-scene>
 
